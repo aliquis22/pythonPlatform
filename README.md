@@ -12,6 +12,14 @@ Clone the repository
 git clone https://codelab.tpu.ru/vaz30/pythonsiteproject.git
 ```
 
+### Database
+
+Create a new PostgreSQL database if you don't have one. See [Use PostgreSql with Django](https://tpu.atlassian.net/wiki/spaces/DS/pages/6127618/Use+PostgreSQL+with+Django+Application)
+
+### Environment variables
+
+Copy the `.env.example` file and rename it to `.env`. Fill the `.env` file with the required environment variables.
+
 ### Installation and Creating a Virtual Environment
 
 **Step 1.** Create a virtual environment.
