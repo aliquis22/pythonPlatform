@@ -1,0 +1,96 @@
+.menu {
+    background-color: #F1F4FF;
+}
+
+.menu nav {
+    display: flex;
+    justify-content: space-between; /* Равномерное распределение элементов по ширине */
+    align-items: center; /* Выравнивание элементов по вертикали */
+}
+
+.menu .menu-items ul,
+.menu div ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Убираем внешние отступы у списков */
+}
+
+.menu .menu-items ul li,
+.menu div ul li a {
+    display: inline-block; /* Отображаем элементы списка в строку */
+    text-decoration: none;
+    margin-right: 20px;
+    color: gray;
+    font-family: 'Inter', sans-serif; /* Применяем шрифт Inter ко всем элементам li */
+    margin-right: 100px;
+
+}
+.menu .menu-items ul li.current-page a {
+    font-weight: bold; /* Жирный текст */
+    color: black; /* Черный цвет текста */
+}
+
+
+.menu .logo img {
+    max-width: 35px;
+    height: auto;
+    margin-right: 70px;
+}
+
+.menu .menu-items ul li:last-child {
+    margin-right: 0; /* Убираем правый отступ у последнего элемента списка */
+}
+
+.menu div {
+    margin-left: auto; /* Выравниваем Registration or Login по правому краю */
+}
+
+.content {
+    width: 50%; /* Установите желаемую ширину содержимого */
+    text-align: center; /* Выравниваем содержимое по центру */
+}
+.footer {
+    background-color:  #F1F4FF; /* Цвет фона footer */
+    color: black; /* Цвет текста */
+    padding: 20px 0; /* Внутренние отступы */
+    text-align: center; /* Выравнивание текста по центру */
+    position: fixed; /* Фиксированное положение */
+    bottom: 0; /* Размещение внизу страницы */
+    width: 100%; /* Ширина по всей ширине страницы */
+}
+
+.footer-content {
+    max-width: 1200px; /* Максимальная ширина контента */
+    margin: 0 auto; /* Центрирование контента */
+}
+
+.footer p {
+    margin: 0; /* Убираем отступы у текста */
+}
+.footer .info img {
+    max-width: 35px;
+    height: auto;
+    margin-right: 70px;
+}
+.footer-content {
+    display: flex; /* Используем flexbox */
+}
+
+.info, .Contacts, .Social {
+    flex: 1; /* Делаем блоки равномерно распределяемыми по ширине */
+    text-align: center; /* Выравнивание текста по центру */
+}
+.footer-content {
+    display: flex; /* Используем flexbox */
+    justify-content: space-between; /* Равномерно распределяем элементы по контейнеру, чтобы они находились справа и слева */
+}
+
+.logo-container {
+    display: flex; /* Используем flexbox для размещения логотипа и названия в строку */
+    align-items: center; /* Выравниваем элементы по вертикали */
+}
+
+.logo-container img {
+    margin-right: 10px; /* Отступ между логотипом и текстом */
+}
+
