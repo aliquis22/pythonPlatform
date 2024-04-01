@@ -20,7 +20,11 @@
         <a href="#" class="nav-item">Books</a>
     </div>
     <div style="flex: 1; text-align: right; padding-right: 20%;">
-        <a href="#" class="nav-item">Register</a> or Login
+        {% if user.is_authenticated %}
+            <p>{{ user.username }} <a href="{% url 'Logout' %}" class="nav-item">Logout</a></p>
+        {% else %}
+            <a href="{% url 'signup' %}" class="nav-item">Register</a> or <a href="{% url 'login' %}" class="nav-item">Login</a>
+        {% endif %}
     </div>
 </nav>
 <div class="content">
