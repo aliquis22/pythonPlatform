@@ -84,6 +84,9 @@ body, html {
     margin:20px;
     font-family: Inter;
 }
+
+
+
 .card img {
     width: 100%;
     height: auto;
@@ -134,7 +137,7 @@ body, html {
     bottom: -3px; /* Полоса сдвигается вниз на высоту полосы, чтобы оказаться под текстом */
     left: 0; /* Полоса начинается слева */
 }
-.views-like {
+.views-likes {
     display: flex;
     justify-content: space-between;
 }
