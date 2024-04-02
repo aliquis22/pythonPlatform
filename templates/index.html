@@ -2,36 +2,44 @@
 {% load static %}
 {% block content %}
     <h3 style="font-family: 'Inter'; color: #306998; font-weight: bold; text-align: center; margin-right: 800px;">ARTICLES</h3>
-    <div class="card-container">
-        <div class="articles">
-                  <div class="card">
-                    <img
-                      src="{% static 'img/logo.jpg' %}"
-                      class="card-img-top"
-                      alt="..."
-                    />
-                      <div class="card-content">
-                          <div class="name-date">
-                                <h3 class="name">Name</h3>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;"> <!-- Добавлено свойство justify-content: center; -->
+        {% for article in articles %}
+            <div class="card-container">
+                <div class="articles">
+                    <div class="card">
+                        <img src="{{ article.image }}" class="card-img-top" alt="..." />
+                        <div class="card-content">
+                            <div class="name-date">
+                                <h3 class="name">{{ article.author.username }}</h3>
                                 <p class="date">Date</p>
-                          </div>
-                          <h3 class="card-title">Title</h3>
-                          <p>
-                            Заглушка описания статьи
-                          </p>
-                          <a href="" class="btn"></a>
-                      </div>
-                  </div>
-        </div>
-        <div class="MostReading">
-            <div class="card">
-                <p>MOST READING</p>
-                      <div class="card-content">
-                          <div class="views-likes">
-                                <p class="views">Views Likes</p>
-                          </div>
-                      </div>
+                            </div>
+                            <h3 class="card-title">Title</h3>
+                            <p>
+                                Заглушка описания статьи
+                            </p>
+                            <a href="" class="btn"></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                <div style="width: 100%;"></div>
+            {% endif %}
+        {% endfor %}
+    
     </div>
+            
 {% endblock %}
+
+
+{##}
+{#<div class="MostReading" style="position: absolute; left: 10px; top: 0;"> <!-- Добавлено позиционирование и отступ слева -->#}
+{#    <div class="card">#}
+{#        <p>MOST READING</p>#}
+{#        <div class="card-content">#}
+{#            <div class="views-likes">#}
+{#                <p class="views">Views Likes</p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
