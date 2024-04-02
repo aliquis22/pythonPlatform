@@ -11,18 +11,18 @@
                         <div class="card-content">
                             <div class="name-date">
                                 <h3 class="name">{{ article.author.username }}</h3>
-                                <p class="date">Date</p>
+                                <p class="date">{{ article.date }}</p> <!-- Выводим дату статьи -->
                             </div>
-                            <h3 class="card-title">Title</h3>
+                            <h3 class="card-title">{{ article.title }}</h3> <!-- Выводим заголовок статьи -->
                             <p>
-                                Заглушка описания статьи
+                                {{ article.description }} <!-- Выводим описание статьи -->
                             </p>
-                            <a href="" class="btn"></a>
+                            <a href="{{ article.url }}" class="btn">Read more</a> <!-- Выводим ссылку на статью -->
                         </div>
                     </div>
                 </div>
             </div>
-            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+            {% if forloop.counter|divisibleby:2 and not forloop.last %}
                 <div style="width: 100%;"></div>
             {% endif %}
         {% endfor %}
@@ -32,14 +32,15 @@
 {% endblock %}
 
 
-{##}
-{#<div class="MostReading" style="position: absolute; left: 10px; top: 0;"> <!-- Добавлено позиционирование и отступ слева -->#}
-{#    <div class="card">#}
-{#        <p>MOST READING</p>#}
-{#        <div class="card-content">#}
-{#            <div class="views-likes">#}
-{#                <p class="views">Views Likes</p>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
+
+
+<div class="MostReading" style="position: absolute; left: 10px; top: 0;"> <!-- Добавлено позиционирование и отступ слева -->
+    <div class="card">
+        <p>MOST READING</p>
+        <div class="card-content">
+            <div class="views-likes">
+                <p class="views">Views Likes</p>
+            </div>
+        </div>
+    </div>
+</div>
