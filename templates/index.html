@@ -13,12 +13,15 @@
                                 <img src="{{ article.image }}" class="card-img-top" alt="..." />
                                 <div class="card-content">
                                     <div class="name-date">
+                                        <div style="width: 50px; height: 38px; border-radius: 50%; overflow: hidden;">
+                                            <img src="{% static 'articles/img/user.jpg'  %}" alt="Изображение" style="width: 38px; height: 38px;">
+                                        </div>
                                         <h3 class="name">{{ article.author.username }}</h3>
-                                        <p class="date">Date</p>
+                                        <p class="date">{{ article.created_at|date:"M, d \a\t H:i" }}</p>
                                     </div>
-                                    <h3 class="card-title">Title</h3>
+                                    <h3 class="card-title">{{ article.title }}</h3>
                                     <p>
-                                        Заглушка описания статьи
+                                        {{ article.announce }}
                                     </p>
                                     <a href="" class="btn"></a>
                                 </div>
