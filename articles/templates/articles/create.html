@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <div class="features">
+        <h1>Форма по добавлению статьи</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.image }}<br>
+            {{ form.title }}<br>
+            {{ form.announce }}<br>
+            {{ form.text }}<br>
+            <span>{{ error }}</span>
+            <button class="btn btn-success" type="submit">Добавить</button>
+
+        </form>
+        </div>
+{% endblock %}
