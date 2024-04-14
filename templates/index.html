@@ -1,51 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h3 style="font-family: 'Inter'; color: #306998; font-weight: bold; text-align: center; margin-right: 800px;">ARTICLES</h3>
-    <div style="display: flex; justify-content: flex-start;">
-        <!-- Левый блок со статьями -->
-        <div style="flex-grow: 1; margin-right: 5px;">
-            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-                {% for article in articles %}
-                    <div class="card-container">
-                        <div class="articles">
-                            <div class="card">
-                                <img src="{{ article.image }}" class="card-img-top" alt="..." />
-                                <div class="card-content">
-                                    <div class="name-date">
-                                        <div style="width: 50px; height: 38px; border-radius: 50%; overflow: hidden;">
-                                            <img src="{% static 'articles/img/user.jpg'  %}" alt="Изображение" style="width: 38px; height: 38px;">
-                                        </div>
-                                        <h3 class="name">{{ article.author.username }}</h3>
-                                        <p class="date">{{ article.created_at|date:"M, d \a\t H:i" }}</p>
-                                    </div>
-                                    <h3 class="card-title">{{ article.title }}</h3>
-                                    <p>
-                                        {{ article.announce }}
-                                    </p>
-                                    <a href="" class="btn"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% if forloop.counter|divisibleby:2 and not forloop.last %}
-                        <div style="width: 100%;"></div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-
-                    <!-- Блок MostReading -->
-            <div class="MostReading" style="position: relative; left: -350px; top: 90px;">
-            <div class="card">
-                <p>MOST READING</p>
-                <div class="card-content">
-                    <div class="views-likes">
-                        <p class="views">Views Likes</p>
+<h1 style="font-family: 'Inter'; color: #306998;" class="text-2xl font-bold mb-6">ARTICLES</h1>
+<div style="display: flex; justify-content: flex-start;">
+    <!-- Левый блок со статьями -->
+    <div class="flex gap-5">
+        {% for article in articles %}
+        <div class="card" style="width: 18rem;">
+            <img src="{{ article.image }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <div class="flex items-center mb-2">
+                    <img class="w-10 h-10 rounded-full mr-4"  src="{% static 'articles/img/user.jpg'  %}" alt="image">
+                    <div class="text-sm">
+                        <p class="text-gray-900 leading-none">{{ article.author.username }}</p>
+                        <p class="text-gray-600">{{ article.created_at|date:"M, d \a\t H:i" }}</p>
                     </div>
                 </div>
+                <p class="font-bold">{{ article.title }}</p>
+                <p class="font-medium text-gray-600">{{ article.announce }}</p>
+                <a href="#" class="btn btn-primary">Read more</a>
             </div>
-            </div>
-
+        </div>
+        {% endfor %}
     </div>
+</div>
+
+<!--&lt;!&ndash; Блок MostReading &ndash;&gt;-->
+<!--<div class="MostReading" style="position: relative; left: -350px; top: 90px;">-->
+<!--    <div class="card">-->
+<!--        <p>MOST READING</p>-->
+<!--        <div class="card-content">-->
+<!--            <div class="views-likes">-->
+<!--                <p class="views">Views Likes</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+</div>
 {% endblock %}
