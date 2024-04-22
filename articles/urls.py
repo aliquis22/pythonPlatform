@@ -5,4 +5,5 @@ import articles.views as views
 
 urlpatterns = [
     path('', views.index, name='home'),
+    path('article/create', views.create, name='create')
 ]
