@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-    <h1 style="font-family: 'Inter'; color: #306998; font-weight: bold;">ARTICLES</h1>
+<h1 style="font-family: 'Inter'; color: #306998;" class="text-2xl font-bold mb-6">ARTICLES</h1>
+<div style="display: flex; justify-content: flex-start;">
+    <!-- Левый блок со статьями -->
+    <div class="flex gap-5">
+        {% for article in articles %}
+        <div class="card" style="width: 18rem;">
+            <img src="{{ article.image }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <div class="flex items-center mb-2">
+                    <img class="w-10 h-10 rounded-full mr-4"  src="{% static 'articles/img/user.jpg'  %}" alt="image">
+                    <div class="text-sm">
+                        <p class="text-gray-900 leading-none">{{ article.author.username }}</p>
+                        <p class="text-gray-600">{{ article.created_at|date:"M, d \a\t H:i" }}</p>
+                    </div>
+                </div>
+                <p class="font-bold">{{ article.title }}</p>
+                <p class="font-medium text-gray-600">{{ article.announce }}</p>
+                <a href="#" class="btn btn-primary">Read more</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!--&lt;!&ndash; Блок MostReading &ndash;&gt;-->
+<!--<div class="MostReading" style="position: relative; left: -350px; top: 90px;">-->
+<!--    <div class="card">-->
+<!--        <p>MOST READING</p>-->
+<!--        <div class="card-content">-->
+<!--            <div class="views-likes">-->
+<!--                <p class="views">Views Likes</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+</div>
 {% endblock %}
