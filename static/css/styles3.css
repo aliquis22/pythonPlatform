@@ -1,0 +1,60 @@
+/* styles.css */
+
+
+.login-text {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #306998;
+}
+
+
+.nav-item {
+    color: gray;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 1px;
+    background-color: #f8f9fa;
+}
+
+.navbar .nav-item {
+    margin: 0 10px;
+}
+
+.login-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    flex-direction: row; /* Add this line */
+}
+
+/* Add these lines */
+.form-control {
+    width: 100%; /* Increase width */
+    height: 30px; /* Increase height */
+    margin-bottom: 15px; /* Add indent between input fields */
+}

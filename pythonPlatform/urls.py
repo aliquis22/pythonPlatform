@@ -22,4 +22,8 @@ from .settings import STATIC_DIR
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('articles.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('', include('articles.urls')),
+    path('problems/', include('problems.urls')),
 ] + static('/images/', document_root=STATIC_DIR + '/images/')
