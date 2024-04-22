@@ -1,10 +1,59 @@
-<body>
-  <form method="post">
-    {% csrf_token %}
-    <label for="{{ form.username.id_for_label }}">Имя:</label>
-    {{ form.username }}
-    <label for="{{ form.password.id_for_label }}">Пароль:</label>
-    {{ form.password }}
-    <button type="submit">Войти</button>
-  </form>
-</body>
+{% extends "base.html"%}
+{% load static %}
+{% block title %} Title {% endblock %}
+
+{% block content%}
+
+
+<div class="container login-container">
+    <div class="col-md-6 d-flex aligh-item-center justify-content-center">
+        <img src="{% static '/login_page_files/login_pic.avif' %}" alt="" width=300>
+    </div>
+    <div class="row justify-content-center align-items-center" style="width: 20%;">
+
+        <!-- Login Form -->
+        <div class="col-md-6 bg-white p-4 rounded shadow-sm">
+
+            <!-- Header -->
+            <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2%;">
+                <span class="login-text">Login</span>
+                <span><a href="{% url 'signup' %}">or create an account</a></span>
+            </div>
+
+
+            <!-- Form -->
+            <form action="" method="POST">
+                {% csrf_token %}
+                <!-- Email Input -->
+                <div class="mb-3 ">
+                    <input type='email' name='email' placeholder='Email' required class='form-control' >
+                </div>
+
+                <!-- Password Input -->
+                <div class='mb-3'>
+                    <input type='password' name='password' placeholder='Password' required class='form-control'>
+                </div>
+
+                <!-- Remember Me Checkbox and Sign In Button -->
+                <div class='mb-3 d-flex justify-content-between'>
+                    <div style='width: 44%; display:inline-block'>
+                        <div class='form-check'>
+                            <input type='checkbox' name='remember_me' id ='remember_me'  value ='1'class ='form-check-input'>
+                            <label class='form-check-label' for='remember_me'>Remember me
+                        </div>
+                    </div>
+                    <div style='width: 8%; display: inline-block;'></div> <!-- Space -->
+                    <div style='width: 44%; display:inline-block'>
+                        <button type='submit' class='btn btn-primary' style='width: 100%; height: 38px; background-color: rgb(48, 105, 152); color: white;
+                     box-shadow: 0px 0px 1.5px 0px #00000040; border: none; border-radius: 5px'>Sign In</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles3.css' %}">
