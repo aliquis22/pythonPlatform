@@ -1,0 +1,30 @@
+/* style.css */
+
+/* Горизонтальная линия между фото и текстом */
+.separator {
+    border-top: 1px solid #ccc;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* Вертикальная линия между левой и правой частями */
+.col-md-3 {
+    border-right: 1px solid #ccc;
+    height: 100vh;
+}
+
+/* Добавление отступов для красивого отображения линий */
+.col-md-3,
+.col-md-9 {
+    padding: 15px;
+}
+
+/* Дополнительные стили для текстовых полей */
+.form-control {
+    background-color: #f8f9fa; /* Слегка серый фон */
+    border: 1px solid #6c757d; /* Более заметная рамка */
+}
+
+a {
+    text-decoration: none;
+}
