@@ -79,7 +79,7 @@ DATABASES = {
         'PORT': env('DATABASE_PORT'),
     }
 }
-
+#AUTH_USER_MODEL = 'accounts.UserProfile'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

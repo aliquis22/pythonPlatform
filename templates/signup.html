@@ -1,11 +1,64 @@
-<h2>Регистрация нового пользователя</h2>
-<form method="post">
-  {% csrf_token %}
-  <label for="{{ form.username.id_for_label }}">Имя:</label>
-  {{ form.username }}
-  <label for="{{ form.password1.id_for_label }}">Пароль:</label>
-  {{ form.password1 }}
-  <label for="{{ form.password2.id_for_label }}">Подтвердите пароль:</label>
-  {{ form.password2 }}
-  <button type="submit">Зарегистрировать</button>
-</form>
+<!-- registration.html -->
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Title {% endblock %}
+
+{% block content %}
+<div class="container login-container">
+    <div class="col-md-6 d-flex aligh-item-center justify-content-center">
+        <img src="{% static '/register_page_files/register_pic.png' %}" alt="" width=400>
+    </div>
+    <div class="row justify-content-center align-items-center" style="width: 20%;">
+
+        <!-- Login Form -->
+        <div class="col-md-6 bg-white p-4 rounded shadow-sm">
+
+            <!-- Header -->
+            <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2%;">
+                <span class="login-text">Create an account</span>
+                <span><a href="{% url 'login' %}">or sign in</a></span>
+            </div>
+
+            <!-- Display Errors -->
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <!-- Form -->
+            <form action="" method="POST">
+                {% csrf_token %}
+                <!-- Username Input -->
+                <div class="mb-3">
+                    <input type='text' name='username' placeholder='Username' required class='form-control'>
+                </div>
+                <!-- Email Input -->
+                <div class="mb-3">
+                    <input type='email' name='email' placeholder='Email' required class='form-control'>
+                </div>
+                <!-- Password Input -->
+                <div class='mb-3 d-flex justify-content-between'>
+                    <input type='password' name='password' placeholder='Password' required class='form-control'>
+                    <input type='password' name='password2' placeholder='Confirm password' required class='form-control'>
+                </div>
+                <!-- Date of Birth Input and sex -->
+                <div class='mb-3 d-flex justify-content-between align-items:center'>
+                    <input type='date' name='birthdate' placeholder='Date of Birth' required class='form-control'>
+                    <input type='radio' name='gender' value='True'> Male
+                    <input type='radio' name='gender' value='False'> Female
+                </div>
+                <!-- Sign In Button -->
+                <div class='mb-3'>
+                    <button type='submit' class='btn btn-primary' style='width: 100%; height: 38px; background-color: rgb(48, 105, 152); color: white;
+                        box-shadow: 0px 0px 1.5px 0px #00000040; border: none; border-radius: 5px'>Sign In
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

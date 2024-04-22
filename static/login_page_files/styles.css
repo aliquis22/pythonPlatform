@@ -1,0 +1,32 @@
+/* styles.css */
+
+.nav-item {
+    color: gray;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px; /* Reduce padding */
+  background-color: #f8f9fa;
+}
+
+.navbar div {
+  padding-left: 0; /* Remove left padding */
+  padding-right: 0; /* Remove right padding */
+}
+
+.navbar .nav-item {
+  font-size: 14px; /* Reduce font size */
+  line-height: 1.5; /* Reduce line height */
+}
+
+.navbar img {
+  width: 20px; /* Resize logo image */
+}
