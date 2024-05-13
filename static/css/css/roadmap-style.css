@@ -1,0 +1,131 @@
+body, html {
+    min-width: 1000px;
+    overflow-x: auto;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.table-of-contents {
+    background-color: #eee;
+    padding: 10px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.table-of-contents h1 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+}
+
+.table-of-contents li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.table-of-contents a {
+    text-decoration: none;
+    color: #0056b3;
+    font-size: 16px;
+}
+
+.roadmap-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
+    padding-top: 60px;
+}
+
+.roadmap-container:target {
+    padding-top: 90px;
+}
+
+.header {
+    padding: 10px;
+    background-color: #f8cec8;
+    display: inline-block;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+
+.theme {
+    background-color: gold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.theme::before {
+    left: -100vw;
+}
+
+.theme::after {
+    right: -100vw;
+    content: "";
+    position: absolute;
+    left: 45px;
+    bottom: -16px;
+    height: 16px;
+    width: 2px;
+    background-color: black;
+    z-index: 1;
+}
+
+.steps {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding-left: 25px;
+}
+
+.step {
+    background-color: #add8e6;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+
+.step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    height: 2px;
+    width: 30px;
+    background-color: black;
+}
+
+.step:hover {
+    box-shadow: 0 8px 12px rgba(0,0,0,0.4); /* Изменение тени при наведении */
+}
+
+#completed {
+    background-color: #77dd77;
+}

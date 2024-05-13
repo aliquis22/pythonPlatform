@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Title {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/css/roadmap-style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="roadmap-container" id="basics">
+        <div class="header">Основы Python</div>
+
+    {% for chapter in chapters %}
+        <div class="theme">{{ chapter.title }}</div>
+        <div class="steps">
+            {% for topic in topics %}
+                {% if topic.chapter == chapter %}
+                    <div class="step" {% if topic.is_completed %} id="completed"{% endif %}>
+                        {{ topic.title }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    {% endfor %}
+
+    </div>
+
+
+{% endblock %}
