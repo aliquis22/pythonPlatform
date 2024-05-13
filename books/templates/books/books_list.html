@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <img class="centered-image-book" src="{% static 'img/book_template.jpg' %}" alt="Описание изображения">
+<a class="row book-card-deck">
+    {% for book in books %}
+        <a href="{% url 'articles:index' %}">
+        <div class="col-md-4">
+            <!-- shop/book/card.html -->
+            <div class="book-card">
+                {% if book.cover_image %}
+                    <img src="{{ book.cover_image.url }}" class="card-img-top" alt="{{ book.title }}">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">Автор: {{ book.author }}</p>
+                    <p class="card-text">Оценка: {{ book.rating }}</p>
+                    <a href="{% url 'books:detail' id=book.id slug=book.slug %}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}
