@@ -8,13 +8,13 @@
 #     success_url = reverse_lazy('login')
 #     template_name = 'signup.html'
 
-
+from .forms import PhotoForm
 from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages , auth
 from django.contrib.auth import authenticate, login, logout
-
+from django.shortcuts import render, redirect
 from accounts.models import UserProfile
 
 
@@ -57,7 +57,7 @@ def user_login(request):
             # Вход пользователя успешен
             login(request, user)
             messages.info(request, 'Successfully logged in!')
-            return redirect('home')
+            return redirect('articles:index')
         else:
             # Неверные учетные данные
             messages.error(request, 'Invalid email or password.')
@@ -69,3 +69,14 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+
+def upload_photo(request):
+    if request.method == 'POST':
+        form = PhotoForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')  # Замените 'user_profile' на URL вашего представления профиля пользователя
+    else:
+        form = PhotoForm(instance=request.user.userprofile)
+    return render(request, 'upload_photo.html', {'form': form})

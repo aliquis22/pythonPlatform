@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-
+from PIL import Image
+from accounts.models import UserProfile
 
 # Create your views here.
 @login_required
@@ -20,6 +21,18 @@ def user_info(request):
         if len(phone_number) > 20:
             messages.error(request, 'Phone number can not be larger than 20 symbols!')
             return render(request, 'userProfile/info.html')
+
+        if 'photo' in request.FILES:
+            photo = request.FILES['photo']
+            user_profile, created = UserProfile.objects.get_or_create(user=user)
+            user_profile.photo = photo
+
+            # Изменение размера изображения до 150x150
+            img = Image.open(photo)
+            img.thumbnail((150, 150))
+            img.save(user_profile.photo.path)
+
+            user_profile.save()
 
         user.first_name = request.POST.get('first_name')
         user.last_name = request.POST.get('last_name')

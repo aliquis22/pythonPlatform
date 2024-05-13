@@ -1,9 +1,10 @@
-from django.contrib import admin
 from django.urls import path
-import articles.views as views
+from . import views
 
+app_name = 'articles'
 
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('article/create', views.create, name='create')
+    path('', views.index, name='index'),  # URL-маршрут для главной страницы
+    path('article/create', views.create, name='create'),
+    # Другие URL-маршруты вашего приложения...
 ]

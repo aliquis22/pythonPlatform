@@ -26,5 +26,8 @@ urlpatterns = [
     path('', include('articles.urls')),
     path('problems/', include('problems.urls')),
     path('user_profile/', include('user_profile.urls')),
+    path('books/', include('books.urls'))
     path('roadmap/', include('roadmaps.urls'))
 ] + static('/images/', document_root=STATIC_DIR + '/images/')
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
