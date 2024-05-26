@@ -3,10 +3,10 @@
 
 {% block content %}
 <div class="problems">
-    <h1 style="font-family: 'Inter'; color: #306998;" class="text-2xl font-bold">PROBLEMS</h1>
+    <h1 style="font-family: 'Inter'; color: #306998;" class="text-2xl font-bold px-6 mb-6">PROBLEMS</h1>
     <ul role="list" class="divide-y divide-gray-100">
         {% for problem in problems %}
-        <li class="flex justify-between gap-x-6 py-5">
+        <a href="/problems/{{problem.problem_id}}"><li class="flex justify-between gap-x-6 py-5 hover:bg-gray-100 px-6 rounded hover:shadow">
             <div class="flex min-w-0 gap-x-4">
                 {{ problem.title }}
             </div>
@@ -19,7 +19,7 @@
                     <span class="text-red-500 font-medium">{{ problem.difficulties }}</span>
                 {% endif %}
             </div>
-        </li>
+        </li></a>
         {% endfor %}
     </ul>
 </div>
