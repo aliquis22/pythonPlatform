@@ -4,25 +4,27 @@
 <h1 style="font-family: 'Inter'; color: #306998;" class="text-2xl font-bold mb-6">ARTICLES</h1>
 <div {% if not articles %} style="display: flex; justify-content: flex-start;" {% endif %}>
     <!-- Левый блок со статьями -->
-    <div  class="flex gap-5">
+    <div class="flex gap-5">
         {% for article in articles %}
-            <a href="{{  article.get_absolute_url }}">
-        <div class="card" style="width: 18rem;">
-            <img src="{{ article.image.url }}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <div class="flex items-center mb-2">
-                    <img class="w-10 h-10 rounded-full mr-4"  src="{% static 'articles/img/user.jpg'  %}" alt="image">
+        <a href="{{  article.get_absolute_url }}">
+            <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <img class="w-full" src="{{ article.image.url }}" alt="Sunset in the mountains">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">{{ article.title }}</div>
+                    <p class="text-gray-700 text-base">
+                        {{ article.announce }}
+                    </p>
+                </div>
+                <div class="px-6 pt-4 pb-6 flex items-center">
+                    <img class="w-10 h-10 rounded-full mr-4" src="{% static 'articles/img/user.jpg'  %}"
+                         alt="Avatar of Jonathan Reinink">
                     <div class="text-sm">
-                        <p class="text-gray-900 leading-none">{{ article.author.username }}</p>
+                        <p class="text-gray-900 leading-none font-medium">{{ article.author.username }}</p>
                         <p class="text-gray-600">{{ article.created_at|date:"M, d \a\t H:i" }}</p>
                     </div>
                 </div>
-                <p class="font-bold">{{ article.title }}</p>
-                <p class="font-medium text-gray-600">{{ article.announce }}</p>
-                <a href="#" class="btn btn-primary">Read more</a>
             </div>
-        </div>
-            </a>
+        </a>
         {% endfor %}
     </div>
 </div>
