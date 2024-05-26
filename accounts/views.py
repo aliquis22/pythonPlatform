@@ -45,9 +45,8 @@ def signup(request):
     else:
         return render(request, 'signup.html')
 
+
 def user_login(request):
-
-
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -57,7 +56,7 @@ def user_login(request):
             # Вход пользователя успешен
             login(request, user)
             messages.info(request, 'Successfully logged in!')
-            return redirect('articles:index')
+            return redirect('articles:home')
         else:
             # Неверные учетные данные
             messages.error(request, 'Invalid email or password.')
@@ -66,9 +65,10 @@ def user_login(request):
     else:
         return render(request,'registration/login.html')
 
+
 def user_logout(request):
     logout(request)
-    return redirect('home')
+    return redirect('articles:home')
 
 
 def upload_photo(request):
