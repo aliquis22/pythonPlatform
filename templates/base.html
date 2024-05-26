@@ -23,11 +23,11 @@
         <img src="{% static 'img/site_logo.png' %}" alt="Logo" width="25">
     </div>
     <div style="flex: 2; text-align: center;">
-        <a href="{% url 'home' %}" class="nav-item">Articles</a>
+        <a href="{% url 'articles:home' %}" class="nav-item">Articles</a>
         <a href="#" class="nav-item">Problems</a>
         <a href="{% url 'roadmap' %}" class="nav-item">Roadmap</a>
-        <a href="#" class="nav-item">Books</a>
-        <a href="{% url 'create' %}" class="nav-item">Add Article</a>
+        <a href="{% url 'books:books' %}" class="nav-item">Books</a>
+        <a href="{% url 'articles:create' %}" class="nav-item">Add Article</a>
     </div>
     <div style="flex: 1; text-align: right; padding-right: 20%;">
         {% if user.is_authenticated %}
