@@ -14,7 +14,7 @@
 </div>
 <div {% if not articles %} style="display: flex; justify-content: flex-start;" {% endif %}>
     <!-- Левый блок со статьями -->
-    <div class="flex gap-5">
+    <div class="flex gap-5 flex-wrap ">
         {% for article in articles %}
         <a href="{{  article.get_absolute_url }}">
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
