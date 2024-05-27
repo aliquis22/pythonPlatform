@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article
 from .forms import ArticleForm
 from django.contrib.auth.decorators import login_required
+from comments.forms import CommentForm
+from django.utils import timezone
 
 
 # Create your views here.
@@ -27,5 +29,16 @@ def create(request):
 
 def article_detail(request, id, slug):
     article = get_object_or_404(Article, id=id, slug=slug)
-
-    return render(request, 'articles/article_detail.html', {'article': article})
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.author = request.user
+            comment.created_date = timezone.now()
+            comment.save()
+            return redirect('articles:article_detail', id=article.id, slug=article.slug)
+    else:
+        form = CommentForm()
+    comments = article.comments.all()
+    return render(request, 'articles/article_detail.html', {'article': article, 'form': form, 'comments': comments})

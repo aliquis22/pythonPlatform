@@ -24,4 +24,33 @@
           <p class="lead">{{ article.text }}</p>
       </article>
 </div>
+<div>
+    <h2>Комментарии</h2>
+    {% if user.is_authenticated %}
+    <h1>Добавить комментарий</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+    </form>
+    {% else %}
+        <p>Пожалуйста, <a href="{% url 'login' %}">войдите в систему</a>, чтобы добавить комментарий.</p>
+    {% endif %}
+    <div>
+        {% for comment in article.comments.all %}
+            <div>
+                <strong>{{ comment.author.username }}</strong>
+                <p>{{ comment.text }}</p>
+                <small>{{ comment.created_date }}</small>
+                {% if comment.updated_date %}
+                    <small>Изменено: {{ comment.updated_date }}</small>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Нет комментариев</p>
+        {% endfor %}
+    </div>
+
+
+</div>
 {% endblock %}
