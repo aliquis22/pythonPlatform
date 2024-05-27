@@ -3,7 +3,7 @@
 {% block content %}
 <img class="centered-image-book w-full mb-8 rounded-lg shadow" src="{% static 'img/book_template.jpg' %}"
      alt="Описание изображения">
-<div class="row book-card-deck">
+<div class="flex gap-8">
     {% if books %}
     {% for book in books %}
     <div class="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
@@ -35,7 +35,7 @@
                 Автор: {{ book.author }}
             </p>
         </div>
-        <div class="p-6 pt-3">
+        <div class="p-6 pt-3 mt-auto">
             <a href="{% url 'books:detail' book.id %}"><button
                     class="block w-full select-none rounded-lg bg-gray-900 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     type="button">
