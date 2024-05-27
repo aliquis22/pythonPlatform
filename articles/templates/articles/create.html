@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-        <div class="features">
-        <h1>Форма по добавлению статьи</h1>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.image }}<br>
-            {{ form.title }}<br>
-            {{ form.announce }}<br>
-            {{ form.text }}<br>
-            <span>{{ error }}</span>
-            <button class="btn btn-success" type="submit">Добавить</button>
+<div class="features">
+    <form method="post" enctype="multipart/form-data" class="max-w-lg mx-auto">
+        {% csrf_token %}
+        <h1 class="text-3xl font-medium mb-4">Форма по добавлению статьи</h1>
 
-        </form>
+        <div class="mb-5">
+            <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Названия статьи</label>
+            {{ form.title }}
         </div>
+        <div class="mb-5">
+            <label for="announce" class="block mb-2 text-sm font-medium text-gray-900">Анонс</label>
+            {{ form.announce }}
+        </div>
+        <div class="mb-5">
+            <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Текст</label>
+            {{ form.text }}
+        </div>
+        <div class="mb-5">
+            {{ form.image }}
+        </div>
+        <span>{{ error }}</span>
+        <button type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Добавить
+        </button>
+    </form>
+</div>
 {% endblock %}
