@@ -27,7 +27,6 @@
         <a href="#" class="nav-item">Problems</a>
         <a href="{% url 'roadmap' %}" class="nav-item">Roadmap</a>
         <a href="{% url 'books:books' %}" class="nav-item">Books</a>
-        <a href="{% url 'articles:create' %}" class="nav-item">Add Article</a>
     </div>
     <div style="flex: 1; text-align: right; padding-right: 20%;">
         {% if user.is_authenticated %}

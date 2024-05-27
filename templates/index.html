@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1 style="font-family: 'Inter'; color: #306998;" class="text-2xl font-bold mb-6">ARTICLES</h1>
+
+<div class="flex justify-end">
+    <a href="{% url 'articles:create' %}">
+        <button type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+            Add article
+        </button>
+    </a>
+</div>
+<div class="flex">
+    <h1 style="font-family: 'Inter'; color: #306998;" class="text-2xl font-bold mb-6">ARTICLES</h1>
+</div>
 <div {% if not articles %} style="display: flex; justify-content: flex-start;" {% endif %}>
     <!-- Левый блок со статьями -->
     <div class="flex gap-5">
