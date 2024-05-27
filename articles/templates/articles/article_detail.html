@@ -37,7 +37,7 @@
         <p>Пожалуйста, <a href="{% url 'login' %}">войдите в систему</a>, чтобы добавить комментарий.</p>
     {% endif %}
     <div>
-        {% for comment in article.comments.all %}
+        {% for comment in comments %}
             <div>
                 <strong>{{ comment.author.username }}</strong>
                 <p>{{ comment.text }}</p>
@@ -45,12 +45,23 @@
                 {% if comment.updated_date %}
                     <small>Изменено: {{ comment.updated_date }}</small>
                 {% endif %}
+                {% if comment.author == user %}
+                    <form method="post" action="{% url 'articles:edit_comment' comment.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                        <button type="submit" class="btn btn-link">Редактировать</button>
+                    </form>
+                    <form method="post" action="{% url 'articles:delete_comment' comment.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                        <button type="submit" class="btn btn-link">Удалить</button>
+                    </form>
+                {% endif %}
             </div>
         {% empty %}
             <p>Нет комментариев</p>
         {% endfor %}
     </div>
-
-
 </div>
+
 {% endblock %}
