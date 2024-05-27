@@ -18,13 +18,13 @@
 
 </head>
 <body class="bg-light">
-<nav class="navbar">
+<nav class="navbar shadow">
     <div style="flex: 1; text-align: left; padding-left: 20%;">
         <a href="{% url 'articles:home' %}"><img src="{% static 'img/site_logo.png' %}" alt="Logo" width="25"></a>
     </div>
     <div style="flex: 2; text-align: center;">
         <a href="{% url 'articles:home' %}" class="nav-item">Articles</a>
-        <a href="#" class="nav-item">Problems</a>
+        <a href="{% url 'problems:list' %}" class="nav-item">Problems</a>
         <a href="{% url 'roadmap' %}" class="nav-item">Roadmap</a>
         <a href="{% url 'books:books' %}" class="nav-item">Books</a>
     </div>
