@@ -26,8 +26,12 @@
                     </p>
                 </div>
                 <div class="px-6 pt-4 pb-6 flex items-center">
+                    {% if article.author.userprofile.photo %}
                     <img class="w-10 h-10 rounded-full mr-4" src="{{ article.author.userprofile.photo.url }}"
                          alt="Avatar of Jonathan Reinink">
+                    {% else %}
+                     <img class="w-10 h-10 rounded-full mr-4" src="{% static 'img/unknown.jpg' %}">   
+                    {% endif %}
                     <div class="text-sm">
                         <p class="text-gray-900 leading-none font-medium">{{ article.author.username }}</p>
                         <p class="text-gray-600">{{ article.created_at|date:"M, d \a\t H:i" }}</p>
