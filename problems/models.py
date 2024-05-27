@@ -22,15 +22,15 @@ class Problem(models.Model):
         return '%s' % self.title
 
 
+
 class Test(models.Model):
-    problem = models.ForeignKey(Problem, on_delete=models.PROTECT)
+    problem = models.ForeignKey(Problem, on_delete=models.PROTECT, null=True, blank=True)
     test_id = models.AutoField("ID", primary_key=True)
     input = models.CharField("Input", max_length=255)
     output = models.CharField("Output", max_length=255)
 
-
 class Code(models.Model):
-    problem = models.ForeignKey(Problem, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    problem = models.ForeignKey(Problem, on_delete=models.PROTECT, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
     code_id = models.AutoField("ID", primary_key=True)
     content = models.TextField("content")
