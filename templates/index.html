@@ -38,7 +38,11 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <h2>Количество просмотров: {{ article.articleviews.views_count }}</h2>
+            </div>
         </a>
+            
         {% endfor %}
     </div>
 </div>
@@ -54,6 +58,18 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
+<!-- Блок MostReading -->
+    
+                {% for article in most_viewed_articles %}
+                {% if article.articleviews.views_count > 0 %}
+                <div class="article">
+                    <h3 class="article-title">{{ article.title }}</h3>
+                    <p class="article-views">Views: {{ article.articleviews.views_count }}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
 
 </div>
+
+
 {% endblock %}

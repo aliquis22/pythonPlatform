@@ -25,3 +25,9 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('articles:article_detail', args=[self.id, self.slug])
 
+
+
+class ArticleViews(models.Model):
+    article = models.OneToOneField(Article, on_delete=models.CASCADE)
+    viewed_by_users = models.ManyToManyField(User)
+    views_count = models.IntegerField(default=0)
