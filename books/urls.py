@@ -7,7 +7,7 @@ app_name = 'books'
 
 urlpatterns = [
     path('', books_list, name='books'),
-    path('book/<int:id>/<slug:slug>/', books_detail, name='detail')
+    path('book/<int:id>', books_detail, name='detail')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
