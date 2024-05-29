@@ -4,6 +4,7 @@ from django.db import models
 from django.db import models
 from django.urls import reverse
 import uuid
+from django.db.models import Avg
 
 class Section(models.Model):
     name = models.CharField(max_length=100, db_index=True)
@@ -42,6 +43,11 @@ class Book(models.Model):
 
         def __str__(self):
             return self.title
+
+        def average_rating(self):
+            return self.reviews.aggregate(Avg('rating'))['rating__avg']
+
+
 
     # def get_absolute_url(self):
     #     return reverse('books:book_detail', args=[self.id, self.slug])
