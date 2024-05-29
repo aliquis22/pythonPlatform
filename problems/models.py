@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class Problem(models.Model):
     DIFFICULTIES_CHOICES = [
         ("easy", "Easy"),
@@ -21,8 +20,6 @@ class Problem(models.Model):
     def __str__(self):
         return '%s' % self.title
 
-
-
 class Test(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.PROTECT, null=True, blank=True)
     test_id = models.AutoField("ID", primary_key=True)
@@ -34,3 +31,10 @@ class Code(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
     code_id = models.AutoField("ID", primary_key=True)
     content = models.TextField("content")
+
+class CompletedProblem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.problem.title}"

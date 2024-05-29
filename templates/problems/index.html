@@ -6,21 +6,68 @@
     <h1 style="font-family: 'Inter'; color: #306998;" class="text-2xl font-bold mb-6">PROBLEMS</h1>
     <ul role="list" class="divide-y divide-gray-100">
         {% for problem in problems %}
-        <a href="/problems/{{problem.problem_id}}"><li class="flex justify-between gap-x-6 py-5 hover:bg-gray-100 px-6 hover:rounded hover:shadow border-b-2">
-            <div class="flex min-w-0 gap-x-4">
-                {{ problem.title }}
-            </div>
-            <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                {% if problem.difficulties == "easy" %}
-                    <span class="text-green-500 font-medium">{{ problem.difficulties }}</span>
-                {% elif problem.difficulties == "medium" %}
-                    <span class="text-yellow-500 font-medium">{{ problem.difficulties }}</span>
-                {% elif problem.difficulties == "hard" %}
-                    <span class="text-red-500 font-medium">{{ problem.difficulties }}</span>
-                {% endif %}
-            </div>
-        </li></a>
+        <a href="/problems/{{problem.problem_id}}">
+            <li class="flex justify-between gap-x-6 py-5 hover:bg-gray-100 px-6 hover:rounded hover:shadow border-b-2">
+                <div class="flex min-w-0 gap-x-4">
+                    <span>{{ problem.title }}</span>
+                    {% if problem.pk in completed_problem_ids %}
+                        <span class="text-green-500 ml-2">&#10003;</span> <!-- Галочка -->
+                    {% endif %}
+                </div>
+                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                    {% if problem.difficulties == "easy" %}
+                        <span class="text-green-500 font-medium">{{ problem.difficulties }}</span>
+                    {% elif problem.difficulties == "medium" %}
+                        <span class="text-yellow-500 font-medium">{{ problem.difficulties }}</span>
+                    {% elif problem.difficulties == "hard" %}
+                        <span class="text-red-500 font-medium">{{ problem.difficulties }}</span>
+                    {% endif %}
+                </div>
+            </li>
+        </a>
         {% endfor %}
     </ul>
 </div>
 {% endblock %}
+
+<style>
+.problems {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.problems ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.problems li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.problems a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.problems li:hover {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.problems .completed {
+    color: #38a169;
+    font-weight: bold;
+}
+
+.problems .completed::before {
+    content: "✓ ";
+    color: #38a169;
+}
+
+</style>

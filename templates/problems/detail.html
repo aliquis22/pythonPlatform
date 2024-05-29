@@ -1,37 +1,182 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/css/interpreter-style.css' %}">
+{% endblock %}
+
 {% block content %}
-  <div class="flex justify-between gap-x-6 mb-8">
-      <div class="flex min-w-0 gap-x-4">
-          <h1 class="text-3xl">{{ problem.title }}</h1>
-      </div>
-      <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-          {% if problem.difficulties == "easy" %}
-              <span class="text-green-500 font-medium">{{ problem.difficulties }}</span>
-          {% elif problem.difficulties == "medium" %}
-              <span class="text-yellow-500 font-medium">{{ problem.difficulties }}</span>
-          {% elif problem.difficulties == "hard" %}
-              <span class="text-red-500 font-medium">{{ problem.difficulties }}</span>
-          {% endif %}
-      </div>
-  </div>
+<div class="flex justify-between gap-x-6 mb-8">
+    <div class="flex min-w-0 gap-x-4">
+        <h1 class="text-3xl">{{ problem.title }}</h1>
+    </div>
+    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+        {% if problem.difficulties == "easy" %}
+        <span class="text-green-500 font-medium">{{ problem.difficulties }}</span>
+        {% elif problem.difficulties == "medium" %}
+        <span class="text-yellow-500 font-medium">{{ problem.difficulties }}</span>
+        {% elif problem.difficulties == "hard" %}
+        <span class="text-red-500 font-medium">{{ problem.difficulties }}</span>
+        {% endif %}
+    </div>
+</div>
 
-  <p class="my-4">{{ problem.content }}</p>
+<p class="my-4">{{ problem.content }}</p>
 
-   {% for test in problem.test_set.all %}
-      <p class="font-medium">Example {{ forloop.counter }}:</p>
-      <div class="my-4 border-l-4 border-gray-500 pl-4">
-        <p><span class="font-medium">Input:</span> {{ test.input }}</p>
-        <p><span class="font-medium">Output:</span> {{ test.output }}</p>
-      </div>
-   {% empty %}
-     <p>No examples available.</p>
-   {% endfor %}
+{% for test in problem.test_set.all %}
+<p class="font-medium">Example {{ forloop.counter }}:</p>
+<div class="my-4 border-l-4 border-gray-500 pl-4">
+    <p><span class="font-medium">Input:</span> {{ test.input }}</p>
+    <p><span class="font-medium">Output:</span> {{ test.output }}</p>
+</div>
+{% empty %}
+<p>No examples available.</p>
+{% endfor %}
 
-  {% if user.is_authenticated %}
-    <h3 class="text-2xl mt-6">Interpreter</h3>
-  {% else %}
-    <p>Please log in to see interpreter.</p>
-  {% endif %}
+{% if user.is_authenticated %}
+<div class="editor">
+    <div id="code-editor" style="height: 200px; width: 100%;"></div>
+    <div class="buttons">
+        <button id="run-button" onclick="runCode()">Run</button>
+        <button id="submit-button" onclick="checkCode()" class="green-button">Submit</button>
+    </div>
+</div>
+<div class="io-section">
+    <div class="input-output">
+        <h2>Input</h2>
+        <textarea id="input-data" placeholder="Input data..." onkeydown="insertTab(event)"></textarea>
+    </div>
+    <div class="output-section">
+        <h2>Output</h2>
+        <pre id="output"></pre>
+    </div>
+    <div class="test-results">
+        <h2>Test Results</h2>
+        <div id="test-results-container"></div>
+    </div>
+    <div id="completion-message" class="hidden">
+        <h2 class="text-green-500">Congratulations! You have completed this problem.</h2>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-python.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-github.js"></script>
+<script>
+    var editor = ace.edit("code-editor");
+    editor.setTheme("ace/theme/github");
+    editor.session.setMode("ace/mode/python");
+    editor.setFontSize("16px");  // Увеличиваем размер шрифта
+
+    // Загрузка сохраненного кода
+    editor.setValue(`{{ user_code|escapejs }}`);
+
+    // Автоматическое сохранение кода при изменении
+    editor.session.on('change', function() {
+        saveCode(editor.getValue());
+    });
+
+    function runCode() {
+        const code = editor.getValue();
+        const inputData = document.getElementById('input-data').value;
+
+        fetch("{% url 'problems:run_code' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: new URLSearchParams({
+                'code': code,
+                'input_data': inputData
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').textContent = data.output || data.error;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function saveCode(code) {
+        const problemId = '{{ problem.pk }}';
+
+        fetch("{% url 'problems:save_code' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: new URLSearchParams({
+                'code': code,
+                'problem_id': problemId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function checkCode() {
+        const code = editor.getValue();
+        const problemId = '{{ problem.pk }}';
+
+        fetch("{% url 'problems:check_code' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: new URLSearchParams({
+                'code': code,
+                'problem_id': problemId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('test-results-container');
+            resultsContainer.innerHTML = '';
+            data.results.forEach(result => {
+                const resultElement = document.createElement('div');
+                resultElement.classList.add('test-result');
+                resultElement.classList.add(result.passed ? 'test-passed' : 'test-failed');
+                resultElement.innerHTML = `
+                    <p><span class="font-medium">Input:</span> ${result.input}</p>
+                    <p><span class="font-medium">Expected Output:</span> ${result.expected_output}</p>
+                    <p><span class="font-medium">Actual Output:</span> ${result.actual_output}</p>
+                    <p><span class="font-medium">Result:</span> ${result.passed ? '<span class="text-green-500">Passed</span>' : '<span class="text-red-500">Failed</span>'}</p>
+                `;
+                resultsContainer.appendChild(resultElement);
+            });
+
+            if (data.all_passed) {
+                document.getElementById('completion-message').classList.remove('hidden');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function insertTab(event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            const start = event.target.selectionStart;
+            const end = event.target.selectionEnd;
+            const value = event.target.value;
+            event.target.value = value.substring(0, start) + '\t' + value.substring(end);
+            event.target.selectionStart = event.target.selectionEnd = start + 1;
+        }
+    }
+</script>
+{% else %}
+<p>Please log in to see interpreter.</p>
+{% endif %}
 {% endblock %}
