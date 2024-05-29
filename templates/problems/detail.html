@@ -24,7 +24,7 @@
 <p class="my-4">{{ problem.content }}</p>
 
 {% for test in problem.test_set.all %}
-<p class="font-medium">Example {{ forloop.counter }}:</p>
+<p class="font-semibold">Example {{ forloop.counter }}:</p>
 <div class="my-4 border-l-4 border-gray-500 pl-4">
     <p><span class="font-medium">Input:</span> {{ test.input }}</p>
     <p><span class="font-medium">Output:</span> {{ test.output }}</p>
@@ -34,30 +34,31 @@
 {% endfor %}
 
 {% if user.is_authenticated %}
-<div class="editor">
-    <div id="code-editor" style="height: 200px; width: 100%;"></div>
-    <div class="buttons">
-        <button id="run-button" onclick="runCode()">Run</button>
-        <button id="submit-button" onclick="checkCode()" class="green-button">Submit</button>
+<div class="flex gap-4 flex-wrap">
+    <div class="editor grow">
+        <h2 class="font-semibold">Исходный код:</h2>
+        <div id="code-editor" class="rounded" style="height: 200px; width: 100%;"></div>
+    </div>
+    <div class="input-output mt-5 w-64">
+        <h2 class="font-semibold mb-2">Ввод:</h2>
+        <textarea id="input-data" placeholder="Input data..." onkeydown="insertTab(event)"></textarea>
+        <div class="buttons">
+            <button id="run-button" onclick="runCode()" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Запустить</button>
+            <button id="submit-button" onclick="checkCode()" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Отослать</button>
+        </div>
     </div>
 </div>
 <div class="io-section">
-    <div class="input-output">
-        <h2>Input</h2>
-        <textarea id="input-data" placeholder="Input data..." onkeydown="insertTab(event)"></textarea>
-    </div>
     <div class="output-section">
-        <h2>Output</h2>
-        <pre id="output"></pre>
+        <h2 class="font-semibold mb-2">Вывод:</h2>
+        <pre id="output" class="rounded min-h-12"></pre>
     </div>
     <div class="test-results">
-        <h2>Test Results</h2>
+        <h2 class="font-semibold">Результат посылки:</h2>
         <div id="test-results-container"></div>
     </div>
-    <div id="completion-message" class="hidden">
-        <h2 class="text-green-500">Congratulations! You have completed this problem.</h2>
-    </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-python.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-github.js"></script>
@@ -148,10 +149,10 @@
                 resultElement.classList.add('test-result');
                 resultElement.classList.add(result.passed ? 'test-passed' : 'test-failed');
                 resultElement.innerHTML = `
-                    <p><span class="font-medium">Input:</span> ${result.input}</p>
-                    <p><span class="font-medium">Expected Output:</span> ${result.expected_output}</p>
-                    <p><span class="font-medium">Actual Output:</span> ${result.actual_output}</p>
-                    <p><span class="font-medium">Result:</span> ${result.passed ? '<span class="text-green-500">Passed</span>' : '<span class="text-red-500">Failed</span>'}</p>
+                    <p><span class="font-medium">Ввод:</span> ${result.input}</p>
+                    <p><span class="font-medium">Ожидаемый результат:</span> ${result.expected_output}</p>
+                    <p><span class="font-medium">Фактический результат:</span> ${result.actual_output}</p>
+                    <p><span class="font-medium font-bold">Результат:</span> ${result.passed ? '<span class="text-green-500">Passed</span>' : '<span class="text-red-500">Failed</span>'}</p>
                 `;
                 resultsContainer.appendChild(resultElement);
             });
@@ -177,6 +178,9 @@
     }
 </script>
 {% else %}
-<p>Please log in to see interpreter.</p>
+    <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+      <p class="font-bold">Информационное сообщение</p>
+      <p class="text-sm">Пожалуйста, <a href="{% url 'login' %}" class="font-bold underline">войдите в систему</a>, чтобы увидеть интерпретатор.</p>
+    </div>
 {% endif %}
 {% endblock %}
