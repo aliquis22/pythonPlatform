@@ -4,7 +4,7 @@
 <div class="flex justify-between max-w-screen-xl mb-4">
       <article class="w-full">
           <header class="mb-4 lg:mb-6 not-format">
-              <address class="flex items-center mb-6 not-italic">
+              <address class="flex items-center mb-6 not-italic justify-between">
                   <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
                       {% if article.author.userprofile.photo %}
                     <img class="mr-4 w-16 h-16 rounded-full" src="{{ article.author.userprofile.photo.url }}" alt="Jese Leos">
@@ -16,6 +16,13 @@
                           <a href="#" rel="author" class="text-xl font-bold text-gray-900">{{ article.author.username|title }}</a>
                           <p class="text-base text-gray-500 dark:text-gray-400"><time pubdate datetime="2022-02-08" title="February 8th, 2022">{{ article.created_at|date:"M, d \a\t H:i" }}</time></p>
                       </div>
+                  </div>
+                  <div>
+                      {% if article.articleviews.views_count %}
+                          <p><i class="fa fa-eye" aria-hidden="true"></i> {{ article.articleviews.views_count }}</p>
+                      {% else %}
+                           <p><i class="fa fa-eye" aria-hidden="true"></i> 0</p>
+                      {% endif %}
                   </div>
               </address>
               <h1 class="text-3xl font-extrabold leading-tight text-gray-900 text-4xl mb-8">{{ article.title }}</h1>
