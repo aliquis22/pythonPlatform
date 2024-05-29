@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'problems',
     'books',
     'roadmaps',
-    'comments'
+    'comments',
+    'reviews',
 ]
 
 MIDDLEWARE = [
