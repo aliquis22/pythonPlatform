@@ -9,10 +9,10 @@
         <a href="/problems/{{problem.problem_id}}">
             <li class="flex justify-between gap-x-6 py-5 hover:bg-gray-100 px-6 hover:rounded hover:shadow border-b-2">
                 <div class="flex min-w-0 gap-x-4">
-                    <span>{{ problem.title }}</span>
                     {% if problem.pk in completed_problem_ids %}
-                        <span class="text-green-500 ml-2">&#10003;</span> <!-- Галочка -->
+                        <span class="text-green-500 ml-2 font-bold"><i class="fa fa-check-circle" aria-hidden="true"></i></span> <!-- Галочка -->
                     {% endif %}
+                    <span class="font-semibold">{{ problem.title }}</span>
                 </div>
                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                     {% if problem.difficulties == "easy" %}
