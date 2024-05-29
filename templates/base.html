@@ -33,7 +33,7 @@
     <div style="flex: 1; text-align: right; padding-right: 20%;">
         {% if user.is_authenticated %}
         <p>
-            <a href="{% url 'user_info' %}">{{ user.username }}</a> <a href="{% url 'logout' %}" class="nav-item">Logout</a></p>
+            <a href="{% url 'user_info' %}">{{ user.username|title }}</a> <a href="{% url 'logout' %}" class="nav-item">Logout</a></p>
         {% else %}
         <a href="{% url 'signup' %}" class="nav-item">Register</a> or <a href="{% url 'login' %}"
                                                                          class="nav-item">Login</a>

@@ -35,7 +35,7 @@
                         {% endif %}
                         <div class="text-sm flex justify-between w-full items-center">
                             <div>
-                                <p class="text-gray-900 leading-none font-medium">{{ article.author.username }}</p>
+                                <p class="text-gray-900 leading-none font-medium">{{ article.author.username|title }}</p>
                                 <p class="text-gray-600">{{ article.created_at|date:"M, d \a\t H:i" }}</p>
                             </div>
                             {% if article.articleviews.views_count %}
