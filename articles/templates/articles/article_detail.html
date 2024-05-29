@@ -24,43 +24,69 @@
           <p class="lead">{{ article.text }}</p>
       </article>
 </div>
-<div>
-    <h2>Комментарии</h2>
-    {% if user.is_authenticated %}
-    <h1>Добавить комментарий</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Добавить комментарий</button>
-    </form>
-    {% else %}
-        <p>Пожалуйста, <a href="{% url 'login' %}">войдите в систему</a>, чтобы добавить комментарий.</p>
-    {% endif %}
-    <div>
+<hr>
+<div class="my-8">
+    <h2 class="text-2xl font-bold">Комментарии:</h2>
+     <div>
         {% for comment in comments %}
-            <div>
-                <strong>{{ comment.author.username }}</strong>
-                <p>{{ comment.text }}</p>
-                <small>{{ comment.created_date }}</small>
-                {% if comment.updated_date %}
-                    <small>Изменено: {{ comment.updated_date }}</small>
-                {% endif %}
-                {% if comment.author == user %}
-                    <form method="post" action="{% url 'articles:edit_comment' comment.id %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                        <button type="submit" class="btn btn-link">Редактировать</button>
-                    </form>
-                    <form method="post" action="{% url 'articles:delete_comment' comment.id %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                        <button type="submit" class="btn btn-link">Удалить</button>
-                    </form>
-                {% endif %}
+            <div class="border p-4 my-4 rounded shadow-sm">
+                <div>
+                    <div class="mb-4 flex items-center">
+                        <img class="w-10 h-10 rounded-full mr-4" src="{{ comment.author.userprofile.photo.url }}" alt="Avatar of Jonathan Reinink">
+                        <div>
+                            <p class="font-bold">{{ comment.author.username|title }}</p>
+                            <small class="text-gray-500 italic">{{ comment.created_date }}</small>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <p>{{ comment.text }}</p>
+
+                            {% if comment.updated_date %}
+                                <small class="text-gray-500 italic">Изменено: {{ comment.updated_date }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="flex gap-4">
+                            {% if comment.author == user %}
+                                <form method="post" action="{% url 'articles:edit_comment' comment.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                    <button type="submit" class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </form>
+                                <form method="post" action="{% url 'articles:delete_comment' comment.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                    <button type="submit" class="btn btn-link"><i class="fa fa-trash" style="color: red;" aria-hidden="true"></i></button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
         {% empty %}
             <p>Нет комментариев</p>
         {% endfor %}
+    </div>
+
+    <div class="mt-8">
+        {% if user.is_authenticated %}
+            <h3 class="text-xl font-bold">Добавить комментарий</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="my-5">
+                    {{ form.text }}
+                </div>
+                <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Добавить
+                </button>
+            </form>
+        {% else %}
+            <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+              <p class="font-bold">Информационное сообщение</p>
+              <p class="text-sm">Пожалуйста, <a href="{% url 'login' %}" class="font-bold underline">войдите в систему</a>, чтобы добавить комментарий.</p>
+            </div>
+        {% endif %}
     </div>
 </div>
 

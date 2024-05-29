@@ -1,6 +1,7 @@
 from .models import Article
 from django.forms import ModelForm, Textarea, TextInput, FileInput
 
+
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
