@@ -21,7 +21,8 @@ def books_detail(request, id):
     book = get_object_or_404(Book, id=id)
     reviews = book.reviews.all()
     average_rating = book.average_rating()
-    user_review = Review.objects.filter(book=book, user=request.user).first()
+    if request.user.is_authenticated:
+        user_review = Review.objects.filter(book=book, user=request.user).first()
     if request.method == 'POST':
         if 'delete_review' in request.POST:
             review = get_object_or_404(Review, id=request.POST.get('delete_review'), user=request.user)
@@ -40,5 +41,9 @@ def books_detail(request, id):
             review.save()
             return redirect('books:detail', id=id)
     else:
-        form = ReviewForm(instance=user_review) if user_review else ReviewForm()
-    return render(request, 'books/detail.html', {'book': book, 'reviews': reviews, 'form': form, 'average_rating': average_rating, 'user_review': user_review})
+        form = ReviewForm(instance=user_review) if request.user.is_authenticated and user_review else ReviewForm()
+
+    if request.user.is_authenticated:
+        return render(request, 'books/detail.html', {'book': book, 'reviews': reviews, 'form': form, 'average_rating': average_rating, 'user_review': user_review})
+
+    return render(request, 'books/detail.html',{'book': book, 'reviews': reviews, 'form': form, 'average_rating': average_rating})

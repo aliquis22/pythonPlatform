@@ -11,16 +11,8 @@
                 <h1 class="text-3xl font-medium">{{ book.title }}</h1>
                 <p
                         class="flex items-center gap-1.5 font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                         class="-mt-0.5 h-5 w-5 text-yellow-700">
-                        <path fill-rule="evenodd"
-                              d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                              clip-rule="evenodd"></path>
-                    </svg>
                     {% if average_rating %}
-                        {{ average_rating }}
-                    {% else %}
-                        No ratings yet
+                    <span class="text-yellow-500 font-semibold text-xl"> <i class="fa fa-star" aria-hidden="true"></i> {{ average_rating }}</span>
                     {% endif %}
                 </p>
             </div>
@@ -38,27 +30,68 @@
     </div>
 
 </div>
+<div class="my-8">
+    <h2 class="text-2xl font-bold">Отзывы:</h2>
     <div>
-    <h2>Reviews</h2>
-      {% for review in reviews %}
-          <h1>{{  review.user }}</h1>
-    <p>{{ review.comment }} - {{ review.rating }} stars {% if review.user == request.user %} (Your review) {% endif %}</p>
-    {% if review.user == request.user %}
-      <form method="post" style="display:inline;">
-        {% csrf_token %}
-        <input type="hidden" name="delete_review" value="{{ review.id }}">
-        <button type="submit">Delete</button>
-      </form>
-    {% endif %}
-  {% empty %}
-    <p>No reviews yet.</p>
-  {% endfor %}
-
-     <h2>{% if user_review %}Edit Your Review{% else %}Add a Review{% endif %}</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if user_review %}Update{% else %}Submit{% endif %}</button>
-  </form>
+        {% for review in reviews %}
+        <div class="border p-4 my-4 rounded shadow-sm">
+            <div>
+                <div class="mb-4 flex items-center">
+                    <img class="w-10 h-10 rounded-full mr-4" src="{{ review.user.userprofile.photo.url }}"
+                         alt="Avatar of Jonathan Reinink">
+                    <div>
+                        <p class="font-bold">{{ review.user.username|title }}</p>
+                        <small class="text-gray-500 italic">{{ review.created_date }}</small>
+                    </div>
+                </div>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <p>{{ review.comment }} - <span class="text-yellow-500 font-bold">{{ review.rating }} <i class="fa fa-star" aria-hidden="true"></i></span> {% if review.user == request.user %} <small class="text-gray-500">(Your
+                            review)</small> {% endif %}
+                        </p>
+                    </div>
+                    <div class="flex gap-4">
+                        {% if review.user == request.user %}
+                        <form method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="edit_review" value="{{ review.id }}">
+                            <button type="submit" class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        <form method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete_review" value="{{ review.id }}">
+                            <button type="submit" class="btn btn-link"><i class="fa fa-trash" style="color: red;"
+                                                                          aria-hidden="true"></i></button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Пока нет отзывов.</p>
+        {% endfor %}
     </div>
+    <hr>
+    {% if user.is_authenticated %}
+        <h2 class="text-xl font-bold my-4">{% if user_review %}Редактируйте свой отзыв{% else %}Добавить отзыв{% endif %}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.comment }}
+            <div>
+                <span class="text-yellow-500 font-bold"><i class="fa fa-star" aria-hidden="true"></i></span>{{ form.rating }}
+            </div>
+            <button type="submit"
+                        class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        {% if user_review %}Обнавить{% else %}Добавить{% endif %}
+            </button>
+        </form>
+    {% else %}
+        <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+          <p class="font-bold">Информационное сообщение</p>
+          <p class="text-sm">Пожалуйста, <a href="{% url 'login' %}" class="font-bold underline">войдите в систему</a>, чтобы добавить отзыв.</p>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}
